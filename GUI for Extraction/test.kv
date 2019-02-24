@@ -1,0 +1,79 @@
+#:kivy 1.10.1
+
+<RootWidget>:
+    manager: manager
+    img: img
+    img3: img3
+    img4: img4
+    lab: lab
+    do_default_tab: False
+    tab_width: (self.width / 3)
+
+    ScreenManager:
+        id: manager
+
+        Screen:
+            id: sc1
+            name:'Load img'
+
+            FileChooserIconView:
+                canvas.before:
+                    Color:
+                        rgb: 0, 0, 0
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                on_selection:
+                    root.select_to(*args)
+
+        Screen:
+            id: sc2
+            name: 'Image'
+
+            FloatLayout:
+                Button:
+                    id: lab
+                    pos_hint: {"right": 0.55, 'top': 1}
+                    size_hint: .15,0.1
+
+            RelativeLayout:
+                Image:
+                    id: img
+                    on_touch_down:
+                        str('Relative:{}'.format(args[1].pos))
+                    pos_hint: {"left": 1, 'bottom': 1}
+                    size_hint: 0.5, 1
+                    allow_stretch: True
+
+            RelativeLayout:
+                Image:
+                    id: img3
+                    pos_hint: {"right": 1, 'bottom': 1}
+                    size_hint: 0.5, 1
+                    allow_stretch: True
+
+        Screen:
+            id: sc3
+            name: 'Image_'
+
+            FloatLayout:
+                Image:
+                    id: img4
+                    keep_data: True
+                    pos: self.pos
+                    size: self.size
+
+    TabbedPanelItem:
+        text: 'Load Image'
+        background_color: 0, 0, 1, 1
+        screen: sc1.name
+
+    TabbedPanelItem:
+        text: 'Compare Output'
+        background_color: 1, 0, 0, 1
+        screen: sc2.name
+
+    TabbedPanelItem:
+        text: 'Final Output'
+        background_color: 0, 1, 0, 1
+        screen: sc3.name
