@@ -55,7 +55,7 @@ def main_function(gray_image):
     return result
 
 
- 
+
 class RootWidget(TabbedPanel):
     manager = ObjectProperty(None)
     img = ObjectProperty(None)
@@ -82,11 +82,11 @@ class RootWidget(TabbedPanel):
             print(args[1][0])
             original_image = cv2.imread(args[1][0])
             image_gray = cv2.imread(args[1][0],0)
-            cv2.imwrite('D:/Projects/CrackGUI2/original_im.jpg',original_image)
+            cv2.imwrite('E:/Github/crack-detection-beproject/GUIForExtraction/original_im.jpg',original_image)
             result = main_function(image_gray)
-            cv2.imwrite('D:/Projects/CrackGUI2/gray_im.jpg', result)
-            self.img3.source = './gray_im.jpg'
-            self.img4.source = './gray_im.jpg'
+            cv2.imwrite('E:/Github/crack-detection-beproject/GUIForExtraction/processed_im.jpg', result)
+            self.img3.source = './processed_im.jpg'
+            self.img4.source = './processed_im.jpg'
             self.img.source = './original_im.jpg'
 
             count_black = np.sum(result==0)
@@ -106,7 +106,7 @@ class RootWidget(TabbedPanel):
         label.texture_update()
         label.pos = touch.pos
         label.size = label.texture_size[0] + 20, label.texture_size[1] + 20
-    
+
 
 class TestApp(App):
     title = 'Screen Widget'
