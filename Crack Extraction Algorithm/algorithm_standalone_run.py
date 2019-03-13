@@ -2,6 +2,9 @@ import cv2
 import math
 import numpy as np
 import scipy.ndimage
+# from skimage import io, morphology, img_as_bool, segmentation
+# # from scipy import ndimage as ndi
+# import matplotlib.pyplot as plt
 
 def orientated_non_max_suppression(mag, ang):
     ang_quant = np.round(ang / (np.pi/4)) % 4
@@ -28,8 +31,8 @@ def non_max_suppression(data, win):
 
 # start calulcation
 count_white = 0
-input_img = cv2.imread('3.jpg')
-gray_image = cv2.imread(r'3.jpg', 0)
+input_img = cv2.imread('a3.jpg')
+gray_image = cv2.imread(r'a3.jpg', 0)
 
 
 with_nmsup = True #apply non-maximal suppression
@@ -69,29 +72,35 @@ else:
     mag = mag.astype(np.uint8)
     kernel = np.ones((5,5),np.uint8)
     result = cv2.morphologyEx(mag, cv2.MORPH_CLOSE, kernel)
-    
-    
-#    #TRYING FLOODFILL
-#    th, im_th = cv2.threshold(gray_image, 220, 255, cv2.THRESH_BINARY_INV);
-#    h, w = im_th.shape[:2]
-#    mask = np.zeros((h+2, w+2), np.uint8)
-#    
-#    cv2.floodFill(result, mask, (0,0), 255);
-#    im_floodfill_inv = cv2.bitwise_not(result)
-#    new = cv2.bitwise_and(result,im_floodfill_inv)
-##    new = im_th+im_floodfill_inv
-##    im_out = cv2.add(im_th,im_floodfill_inv)
-##    im_out = im_th | im_floodfill_inv
-#    
-##    cv2.imshow("Thresholded Image", im_th);
-#    cv2.imshow("Floodfilled Image", result);
-#    cv2.imshow("Inverted Floodfilled Image", im_floodfill_inv);
-#    cv2.imshow("Foreground", new);
-#    # FLOODFILL END
-    
-    
+
+
+    # imgray = cv2.cvtColor(result,cv2.COLOR_BGR2GRAY)
+    # ret,thresh = cv2.threshold(result,127,255,0)
+    # _, contours, _= cv2.findContours(result, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+
+    # _, contours, _= cv2.findContours(result, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    #
+    # # resultContour=cv2.drawContours(result,contours,-1,(0,255,0),3)
+    # print("no of shapes {0}".format(len(contours)))
+
+    # for cnt in contours:
+    #     rect = cv2.minAreaRect(cnt)
+    #     box = cv2.boxPoints(rect)
+    #     input_img = np.int0(box)
+    #     res = cv2.drawContours(result, [box.astype(int)],0,(0,255,0),3)
+
+
+
+
+
+
     #result = cv2.erode(result, result, kernel)
-    cv2.imshow('im', result)
+    cv2.imshow('res', result)
+    cv2.imshow('cont', res)
+    # cv2.imshow('resultWContours', resultContour)
+    # cv2.imshow('out', output)
+    # cv2.imshow('im', e_im)
     count_black = np.sum(result==0)
     count_white = np.sum(result == 255)
     print('Number of white pixels : ', count_white)
@@ -102,6 +111,3 @@ else:
     print('Crack Intensity is :', crack_intensity)
     cv2.imshow('Input',input_img)
     cv2.waitKey()
-
-
-    

@@ -2,6 +2,12 @@ import cv2
 import math
 import numpy as np
 import scipy.ndimage
+import glob
+from skimage.io import imread_collection
+import os
+import errno
+import shutil
+
 
 def main_algorithm(gray_image):
     def orientated_non_max_suppression(mag, ang):
@@ -118,3 +124,42 @@ def main_algorithm(gray_image):
 
 #cv2.imshow('op',result)
 #cv2.waitKey()
+
+
+
+#your path 
+
+
+source = os.listdir("E:\\CrackTestImg\\")
+destination = "E:\\CrackOp\\"
+for files in source:
+    if files.endswith(".jpeg"):
+        shutil.copy(files,destination)
+
+
+
+
+
+
+# #check if directory exist, if not create it
+# try:
+#     os.makedirs(mydir)
+# except OSError as e:
+#     if e.errno == errno.EEXIST:
+#         raise
+
+# Replace mydir with the directory you want
+mydir = 'E:\\CrackOp\\'
+for fil in glob.glob("E:\CrackTestImg\*.jpg"):
+    image = cv2.imread(fil) 
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    result = main_algorithm(gray_image) # convert to greyscale
+    cv2.imwrite(os.path.join(mydir,fil),result) # write to location with same name
+
+
+# input_img = cv2.imread('/CrackTestImg/a3.jpg')
+# gray_image = cv2.imread(r'/CrackTestImg/a3.jpg', 0)
+# result=main_algorithm(gray_image)
+
+# cv2.imshow('result',result)
+# cv2.waitKey()
