@@ -82,9 +82,9 @@ class RootWidget(TabbedPanel):
             print(args[1][0])
             original_image = cv2.imread(args[1][0])
             image_gray = cv2.imread(args[1][0],0)
-            cv2.imwrite('E:/Github/crack-detection-beproject/GUIForExtraction/original_im.jpg',original_image)
+            cv2.imwrite('E:/Github/crack-detection-beproject/GUI/original_im.jpg',original_image)
             result = main_function(image_gray)
-            cv2.imwrite('E:/Github/crack-detection-beproject/GUIForExtraction/processed_im.jpg', result)
+            cv2.imwrite('E:/Github/crack-detection-beproject/GUI/processed_im.jpg', result)
             self.img3.source = './processed_im.jpg'
             self.img4.source = './processed_im.jpg'
             self.img.source = './original_im.jpg'
